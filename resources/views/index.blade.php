@@ -6,9 +6,10 @@
         <div class="card">
             <div class="card-header">
                 All Posts
-
-                <a class="btn bg-success" href="">Create</a>
-                <a class="btn bg-warning" href="">Trashed</a>
+                <div class="col-md-6 ">
+                    <a class="btn btn-success btn" href="{{route('posts.create')}}">Create</a>
+                    <a class="btn btn-warning btn" href="">Trashed</a>
+                </div>
             </div>
 
             <div class="card-body">
@@ -25,20 +26,23 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td><img src="https://picsum.photos/200" alt="" width="80"></td>
-                        <td>Lorem ipsum dolor sit</td>
-                        <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Corporis nobis magni voluptatibus suscipit soluta ad est ipsum.
-                           Reprehenderit explicabo sint libero magnam. Consectetur cumque vitae ab quos odit, non maxime?</td>
-                        <td>Nwes</td>
-                        <td>04-08-23</td>
-                        <td>
-                            <a class="btn bg-primary" href="">Edit</a>
-                            <a class="btn bg-danger" href="">Delete</a>
-                        </td>
-                      </tr>
+                        @foreach ($posts as $post )
+                        <tr>
+                            <th scope="row">{{$post->id}}</th>
+                            <td><img src="{{asset($post->image)}}" alt="" width="80"></td>
+                            <td>{{$post->title}}</td>
+                            <td>L{{$post->description}}</td>
+                            <td>{{$post->category_id}}</td>
+                            <td>{{date('d-m-Y', strtotime($post->created_at))}}</td>
+                            <td>
+                                <a class="btn btn-success btn" href="">Show</a>
+                                <a class="btn btn-primary btn" href="">Edit</a>
+                                <a class="btn btn-danger btn" href="">Delete</a>
+                            </td>
+                          </tr>
+
+                        @endforeach
+
 
                     </tbody>
                   </table>
