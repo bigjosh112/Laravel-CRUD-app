@@ -8,7 +8,7 @@
                 All Posts
                 <div class="col-md-6 ">
                     <a class="btn btn-success btn" href="{{route('posts.create')}}">Create</a>
-                    <a class="btn btn-warning btn" href="">Trashed</a>
+                    <a class="btn btn-warning btn" href="{{route('posts.trashed')}}">Trashed</a>
                 </div>
             </div>
 
@@ -37,7 +37,12 @@
                             <td>
                                 <a class="btn btn-success btn" href="{{route('posts.show', $post->id)}}">Show</a>
                                 <a class="btn btn-primary btn" href="{{route('posts.edit', $post->id)}}">Edit</a>
-                                <a class="btn btn-danger btn" href="">Delete</a>
+                                {{-- <a class="btn btn-danger btn" href="">Delete</a> --}}
+                                <form action="{{route('posts.destroy', $post->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn">Delete</button>
+                                </form>
                             </td>
                           </tr>
 

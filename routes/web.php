@@ -18,4 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('posts/trash', [PostController::class, 'trashed'])->name('posts.trashed');
+Route::get('posts/{id}/restore', [PostController::class, 'restore'])->name('posts.restore');
+
 Route::resource('posts', PostController::class);
+
+
