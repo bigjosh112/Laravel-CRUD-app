@@ -32,7 +32,7 @@
                             <td><img src="{{asset($post->image)}}" alt="" width="80"></td>
                             <td>{{$post->title}}</td>
                             <td>{{$post->description}}</td>
-                            <td>{{$post->category_id}}</td>
+                            <td>{{$post->category->name}}</td>
                             <td>{{date('d-m-Y', strtotime($post->created_at))}}</td>
                             <td>
                                 <a class="btn btn-success btn" href="{{route('posts.show', $post->id)}}">Show</a>
@@ -50,7 +50,9 @@
 
 
                     </tbody>
+
                   </table>
+                  {{$posts->links()}}
             </div>
         </div>
     </div>
