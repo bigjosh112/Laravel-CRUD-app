@@ -6,13 +6,14 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use File;
+use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
     public function __construct()
     {
         // $this->middleware('authCheck2')->only('create');
-        $this->middleware('authCheck2')->except('create');
+        //$this->middleware('authCheck2')->except('create');
 
     }
     /**
@@ -20,8 +21,17 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(3);
+        $posts = Cache::remember('posts-page-'.request('page', 1), 60*3, function(){
+            return Post::with('category')->paginate(3);
+        });
         return view('index', compact('posts'));
+
+        // $posts = Cache::rememberForever('posts',function(){
+        //         return Post::with('category')->paginate(3);
+        //     });
+        //     return view('index', compact('posts'));
+
+
     }
 
     /**
