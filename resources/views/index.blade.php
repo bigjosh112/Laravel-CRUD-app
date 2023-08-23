@@ -7,8 +7,12 @@
             <div class="card-header">
                 All Posts
                 <div class="col-md-6 ">
+                    @can('create', \App\Models\Post::class)
                     <a class="btn btn-success btn" href="{{route('posts.create')}}">Create</a>
+
                     <a class="btn btn-warning btn" href="{{route('posts.trashed')}}">Trashed</a>
+                    @endcan
+
                 </div>
             </div>
 
@@ -35,13 +39,22 @@
                             <td>{{$post->category->name}}</td>
                             <td>{{date('d-m-Y', strtotime($post->created_at))}}</td>
                             <td>
-                                <a class="btn btn-success btn" href="{{route('posts.show', $post->id)}}">Show</a>
-                                <a class="btn btn-primary btn" href="{{route('posts.edit', $post->id)}}">Edit</a>
+                                    <a class="btn btn-success btn" href="{{route('posts.show', $post->id)}}">Show</a>
+
+
+                                    @can('update', $post)
+                                    <a class="btn btn-primary btn" href="{{route('posts.edit', $post->id)}}">Edit</a>
+                                @endcan
+
                                 {{-- <a class="btn btn-danger btn" href="">Delete</a> --}}
+                                @can('delete', $post)
                                 <form action="{{route('posts.destroy', $post->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger btn">Delete</button>
+
+                                        <button class="btn btn-danger btn">Delete</button>
+                                    @endcan
+
                                 </form>
                             </td>
                           </tr>
