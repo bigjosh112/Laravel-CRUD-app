@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Jobs\SendMail;
 use App\Mail\OrderShipped;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -80,7 +81,7 @@ Route::group(['middleware' => 'auth'], function() {
         //     // $message->attach('pathToFile');
         // });
 
-        Mail::send(new OrderShipped);
+        SendMail::dispatch();
 
         dd('success');
     });
