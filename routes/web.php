@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\UserRegister;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -130,6 +131,13 @@ Route::group(['middleware' => 'auth'], function() {
         //return Auth::user();
         return auth()->user();
     });
+});
+
+Route::get('user-register', function(){
+    $email = 'user@gmail.com';
+    event(new UserRegister($email));
+
+    dd('message sent');
 });
 
 
